@@ -67,7 +67,6 @@
 					<td th:text="${item.itemDetail.condition}"></td>
 					<td th:text="${item.itemDetail.category}"></td>
 					<td>
-				    	<a th:href="@{'/item/show/admin/' + ${item.id}} "class="btn btn-primary">Lihat</a>
 				    	<a th:href="@{'/item/showFormUpdate/admin/' + ${item.id}} "class="btn btn-warning">Update</a>
 				    </td>
 				</tr>

@@ -37,21 +37,6 @@ public class ItemController {
 		return mv;
 	}
 	
-	@GetMapping("/item/show/admin/{id}")
-	public ModelAndView showAdmin(@PathVariable (value="id") String id) {
-		Optional<Item> item = itemRepository.findById(id);
-		Query query = new Query(Criteria.where("id").is(id));
-		List<Item> item2 = mongoTemplate.find(query, Item.class);
-		if(item2 != null) {
-			Update update = new Update().inc("seen", 1);
-			UpdateResult result = mongoTemplate.updateFirst(query, update, Item.class);
-		}
-		
-		item.get().setSeen(item.get().getSeen()+1);
-		ModelAndView mv = new ModelAndView("showAdmin");
-		mv.addObject("item", item);
-		return mv;
-	}
 	
 	@GetMapping("/item/show/{id}")
 	public ModelAndView show(@PathVariable (value="id") String id) {
@@ -91,7 +76,7 @@ public class ItemController {
 			update.set("item_detail.category", category);
 			UpdateResult result = mongoTemplate.updateFirst(query, update, Item.class);
 		}
-		ModelAndView mv = new ModelAndView("redirect:/dashboard");
+		ModelAndView mv = new ModelAndView("redirect:/item");
 		
 		return mv;
 	}
@@ -108,12 +93,12 @@ public class ItemController {
 			update.set("rating", item.get().getRating()+rating/2);
 			UpdateResult result = mongoTemplate.updateFirst(query, update, Item.class);
 		}
-		ModelAndView mv = new ModelAndView("redirect:/home.html");
+		ModelAndView mv = new ModelAndView("redirect:/");
 		
 		return mv;
 	}
 	
-	@PostMapping("/buyMe")
+	@PostMapping("/buyItem")
 	public String buyPme(@RequestParam("id") String id,
 			@RequestParam(name="stock") double stock, @RequestParam(name="rating")double rating ) 
 	{
@@ -121,7 +106,7 @@ public class ItemController {
 		i= itemRepository.findById(id).get();
 		i.setStock(stock);
 		itemRepository.save(i);
-		return "redirect:/home.html";
+		return "redirect:/home";
 	}
 	
 	
