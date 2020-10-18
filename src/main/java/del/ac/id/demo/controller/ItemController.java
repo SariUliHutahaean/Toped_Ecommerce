@@ -108,7 +108,7 @@ public class ItemController {
 			update.set("rating", item.get().getRating()+rating/2);
 			UpdateResult result = mongoTemplate.updateFirst(query, update, Item.class);
 		}
-		ModelAndView mv = new ModelAndView("redirect:/");
+		ModelAndView mv = new ModelAndView("redirect:/home.html");
 		
 		return mv;
 	}
