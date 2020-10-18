@@ -7,29 +7,25 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document("items")
 public class Item {
+
 	@Id
 	String id;
 	private String item_name, color, accept_installment_payment;
 	private double stock, price, discount, rating;
 	private int sold, seen, lenght;
+	
 	@DBRef
 	@Field("item_detail")
 	private ItemDetail itemDetail;
 	
 	public Item() {}
-	
-	public Item(final String item_name,
-			final String color,
-			final double stock,
-			final double price,
-			final double discount,
-			final double rating,
-			final int sold,
-			final int seen,
-			final int lenght,
-			final ItemDetail itemDetail) {
+
+	public Item(final String item_name, final String color, final String accept_installment_payment, final double stock, final double price,
+			final double discount, final double rating, final int sold, final int seen, final int lenght, final ItemDetail itemDetail) {
+		super();
 		this.item_name = item_name;
 		this.color = color;
+		this.accept_installment_payment = accept_installment_payment;
 		this.stock = stock;
 		this.price = price;
 		this.discount = discount;
@@ -38,6 +34,14 @@ public class Item {
 		this.seen = seen;
 		this.lenght = lenght;
 		this.itemDetail = itemDetail;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getItem_name() {
@@ -56,6 +60,9 @@ public class Item {
 		this.color = color;
 	}
 
+	public String getAccept_installment_payment() {
+		return accept_installment_payment;
+	}
 
 	public void setAccept_installment_payment(String accept_installment_payment) {
 		this.accept_installment_payment = accept_installment_payment;
@@ -125,7 +132,7 @@ public class Item {
 		this.itemDetail = itemDetail;
 	}
 	
-	
-	
-	
+	public int updateSeen(int seenChanged) {
+		return seenChanged += 1;
+	}
 }
