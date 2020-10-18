@@ -96,7 +96,7 @@ public class ItemController {
 		return mv;
 	}
 	
-	@PostMapping("/buyItem")
+	@GetMapping("/buyItem")
 	public ModelAndView buyItem(@RequestParam(name="id") String id, @RequestParam(name="stock") double stock, @RequestParam(name="rating") double rating) {
 		Optional<Item> item = itemRepository.findById(id);
 		Query query = new Query(Criteria.where("id").is(id));
